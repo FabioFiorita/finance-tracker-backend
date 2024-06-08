@@ -1,6 +1,6 @@
 import { makeTransaction } from 'test/factories/make-transaction'
 import { makeUser } from 'test/factories/make-user'
-import { InMemoryTransactionsRepository } from 'test/repositories/in-memory-transaction-repository'
+import { InMemoryTransactionsRepository } from 'test/repositories/in-memory-transactions-repository'
 
 import { FetchUserTransactionsUseCase } from './fetch-user-transactions'
 

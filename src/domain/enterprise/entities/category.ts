@@ -1,12 +1,9 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
-import { Transaction } from './transaction'
-
 interface CategoryProps {
   createdAt: Date
   name: string
-  transactions: Transaction[]
 }
 
 export class Category extends Entity<CategoryProps> {
@@ -16,10 +13,6 @@ export class Category extends Entity<CategoryProps> {
 
   get name() {
     return this.props.name
-  }
-
-  get transactions() {
-    return this.props.transactions
   }
 
   public static create(props: CategoryProps, id?: UniqueEntityID) {

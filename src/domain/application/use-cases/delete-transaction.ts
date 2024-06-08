@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
 
@@ -9,6 +11,7 @@ type DeleteTransactionUseCaseRequest = {
 
 type DeleteTransactionUseCaseResponse = Either<ResourceNotFoundError, null>
 
+@Injectable()
 export class DeleteTransactionUseCase {
   constructor(private repository: TransactionsRepository) {}
 

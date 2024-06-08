@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, right } from '@/core/either'
 import { Transaction } from '@/domain/enterprise/entities/transaction'
 
@@ -15,6 +17,7 @@ type FetchUserTransactionsResponse = Either<
   }
 >
 
+@Injectable()
 export class FetchUserTransactionsUseCase {
   constructor(private repository: TransactionsRepository) {}
 

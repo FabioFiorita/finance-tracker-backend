@@ -1,4 +1,4 @@
-import { InMemoryTransactionsRepository } from 'test/repositories/in-memory-transaction-repository'
+import { InMemoryTransactionsRepository } from 'test/repositories/in-memory-transactions-repository'
 
 import { CreateTransactionUseCase } from './create-transaction'
 

@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
 
 import { Either, left, right } from '@/core/either'
@@ -21,6 +22,7 @@ type CreateInstallementTransactionsUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class CreateInstallementTransactionsUseCase {
   constructor(private repository: TransactionsRepository) {}
 

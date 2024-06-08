@@ -1,5 +1,5 @@
 import { makeTransaction } from 'test/factories/make-transaction'
-import { InMemoryTransactionsRepository } from 'test/repositories/in-memory-transaction-repository'
+import { InMemoryTransactionsRepository } from 'test/repositories/in-memory-transactions-repository'
 
 import { EditTransactionUseCase } from './edit-transaction'
 
@@ -31,6 +31,8 @@ describe('Delete Transaction', () => {
 
     expect(result.isRight()).toBeTruthy()
     expect(inMemoryRepository.items.length).toBe(1)
-    expect(inMemoryRepository.items[0]).toEqual(result.value?.transaction)
+    if (result.isRight()) {
+      expect(inMemoryRepository.items[0]).toEqual(result.value?.transaction)
+    }
   })
 })

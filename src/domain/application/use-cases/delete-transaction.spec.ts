@@ -1,5 +1,5 @@
 import { makeTransaction } from 'test/factories/make-transaction'
-import { InMemoryTransactionsRepository } from 'test/repositories/in-memory-transaction-repository'
+import { InMemoryTransactionsRepository } from 'test/repositories/in-memory-transactions-repository'
 
 import { DeleteTransactionUseCase } from './delete-transaction'
 
