@@ -15,7 +15,6 @@ export function makeMethod(
   return Method.create(
     {
       id: new UniqueEntityID(),
-      createdAt: new Date(),
       name: faker.finance.transactionType(),
       userId: makeUser().id,
       ...override,

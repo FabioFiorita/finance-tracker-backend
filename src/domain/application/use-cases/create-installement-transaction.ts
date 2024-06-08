@@ -50,7 +50,6 @@ export class CreateInstallementTransactionsUseCase {
 
     for (let i = initial; i < number; i++) {
       const newTransaction = Transaction.create({
-        createdAt: initialTransaction.createdAt,
         amount: initialTransaction.amount,
         purchaseDate: dayjs(initialTransaction.purchaseDate)
           .add(i, 'month')
@@ -61,9 +60,9 @@ export class CreateInstallementTransactionsUseCase {
         isInstallment: true,
         initialInstallment: i + 1,
         installmentNumber: initialTransaction.installmentNumber,
-        categoryId: initialTransaction.categoryId,
-        methodId: initialTransaction.methodId,
-        userId: initialTransaction.userId,
+        category: initialTransaction.category,
+        method: initialTransaction.method,
+        user: initialTransaction.user,
       })
 
       await this.repository.create(newTransaction)

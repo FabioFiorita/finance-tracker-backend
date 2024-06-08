@@ -1,3 +1,6 @@
+import { makeCategory } from 'test/factories/make-category'
+import { makeMethod } from 'test/factories/make-method'
+import { makeUser } from 'test/factories/make-user'
 import { InMemoryTransactionsRepository } from 'test/repositories/in-memory-transactions-repository'
 
 import { CreateTransactionUseCase } from './create-transaction'
@@ -19,9 +22,9 @@ describe('Create Transaction', () => {
       isIncome: false,
       isRecurring: false,
       isInstallment: false,
-      categoryId: 1,
-      methodId: 1,
-      userId: 1,
+      category: makeCategory(),
+      method: makeMethod(),
+      user: makeUser(),
     })
 
     expect(result.isRight()).toBeTruthy()

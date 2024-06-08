@@ -17,6 +17,11 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
       },
       take: 20,
       skip: page * 20,
+      include: {
+        category: true,
+        method: true,
+        user: true,
+      },
     })
 
     return transactions.map(PrismaTransactionMapper.toDomain)
@@ -29,6 +34,11 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
       },
       take: 20,
       skip: page * 20,
+      include: {
+        category: true,
+        method: true,
+        user: true,
+      },
     })
 
     return transactions.map(PrismaTransactionMapper.toDomain)
@@ -41,6 +51,11 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
       },
       take: 20,
       skip: page * 20,
+      include: {
+        category: true,
+        method: true,
+        user: true,
+      },
     })
 
     return transactions.map(PrismaTransactionMapper.toDomain)
@@ -49,6 +64,11 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
   public async findById(id: number) {
     const transaction = await this.prisma.transaction.findUnique({
       where: { id },
+      include: {
+        category: true,
+        method: true,
+        user: true,
+      },
     })
 
     if (!transaction) {

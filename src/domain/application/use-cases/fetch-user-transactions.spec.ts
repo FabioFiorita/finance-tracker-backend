@@ -16,8 +16,8 @@ describe('Fetch User Transactions', () => {
   it('should fetch a user transactions', async () => {
     const user = makeUser()
     inMemoryRepository.items.push(
-      makeTransaction({ userId: user.id }),
-      makeTransaction({ userId: user.id }),
+      makeTransaction({ user }),
+      makeTransaction({ user }),
     )
 
     const result = await sut.execute({
@@ -32,7 +32,7 @@ describe('Fetch User Transactions', () => {
   it('should be paginated', async () => {
     const user = makeUser()
     for (let i = 0; i < 25; i++) {
-      inMemoryRepository.items.push(makeTransaction({ userId: user.id }))
+      inMemoryRepository.items.push(makeTransaction({ user }))
     }
 
     const result = await sut.execute({

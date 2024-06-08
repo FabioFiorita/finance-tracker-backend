@@ -13,7 +13,6 @@ export function makeCategory(
   return Category.create(
     {
       id: new UniqueEntityID(),
-      createdAt: new Date(),
       name: faker.commerce.department(),
       ...override,
     },

@@ -1,38 +1,55 @@
-import { Transaction as PrismaTransaction } from '@prisma/client'
+import {
+  Category as PrismaCategory,
+  Method as PrismaMethod,
+  Prisma,
+  Transaction as PrismaTransaction,
+  User as PrismaUser,
+} from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Transaction } from '@/domain/enterprise/entities/transaction'
 
+import { PrismaCategoryMapper } from './prisma-category-mapper'
+import { PrismaMethodMapper } from './prisma-method-mapper'
+import { PrismaUserMapper } from './prisma-user-mapper'
+
+type PrismaTransactionWithCategoryAndMethodAndUser = PrismaTransaction & {
+  category: PrismaCategory | null
+  method: PrismaMethod | null
+  user: PrismaUser | null
+}
+
 export class PrismaTransactionMapper {
-  static toDomain(raw: PrismaTransaction): Transaction {
+  static toDomain(
+    raw: PrismaTransactionWithCategoryAndMethodAndUser,
+  ): Transaction {
     if (!raw) {
       throw new Error('Transaction not found')
     }
 
-    if (!raw.categoryId) {
+    if (!raw.category) {
       throw new Error('Category not found')
     }
 
-    if (!raw.methodId) {
+    if (!raw.method) {
       throw new Error('Method not found')
     }
 
-    if (!raw.userId) {
+    if (!raw.user) {
       throw new Error('User not found')
     }
 
     return Transaction.create(
       {
-        createdAt: raw.createdAt,
         description: raw.description,
         amount: raw.amount,
-        categoryId: new UniqueEntityID(raw.categoryId),
+        category: PrismaCategoryMapper.toDomain(raw.category),
         isIncome: raw.isIncome,
         isInstallment: raw.isInstallment,
         isRecurring: raw.isRecurring,
-        methodId: new UniqueEntityID(raw.methodId),
+        method: PrismaMethodMapper.toDomain(raw.method),
         purchaseDate: raw.purchaseDate,
-        userId: new UniqueEntityID(raw.userId),
+        user: PrismaUserMapper.toDomain(raw.user),
         initialInstallment: raw.initialInstallment ?? undefined,
         installmentNumber: raw.installmentNumber ?? undefined,
         paymentDate: raw.paymentDate ?? undefined,
@@ -41,19 +58,20 @@ export class PrismaTransactionMapper {
     )
   }
 
-  static toPersistence(transaction: Transaction): PrismaTransaction {
+  static toPersistence(
+    transaction: Transaction,
+  ): Prisma.TransactionUncheckedCreateInput {
     return {
       id: transaction.id.toValue(),
-      createdAt: transaction.createdAt,
       description: transaction.description,
       amount: transaction.amount,
-      categoryId: transaction.categoryId.toValue(),
+      categoryId: transaction.category.id.toValue(),
       isIncome: transaction.isIncome,
       isInstallment: transaction.isInstallment,
       isRecurring: transaction.isRecurring,
-      methodId: transaction.methodId.toValue(),
+      methodId: transaction.method.id.toValue(),
       purchaseDate: transaction.purchaseDate,
-      userId: transaction.userId.toValue(),
+      userId: transaction.user.id.toValue(),
       initialInstallment: transaction.initialInstallment ?? null,
       installmentNumber: transaction.installmentNumber ?? null,
       paymentDate: transaction.paymentDate ?? null,

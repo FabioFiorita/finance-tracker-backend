@@ -24,9 +24,9 @@ describe('Delete Transaction', () => {
       isIncome: transaction.isIncome,
       isRecurring: transaction.isRecurring,
       isInstallment: transaction.isInstallment,
-      categoryId: transaction.categoryId.toValue(),
-      methodId: transaction.methodId.toValue(),
-      userId: transaction.userId.toValue(),
+      category: transaction.category,
+      method: transaction.method,
+      user: transaction.user,
     })
 
     expect(result.isRight()).toBeTruthy()

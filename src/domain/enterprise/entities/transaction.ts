@@ -1,8 +1,11 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
+import { Category } from './category'
+import { Method } from './method'
+import { User } from './user'
+
 interface TransactionProps {
-  createdAt: Date
   amount: number
   purchaseDate: Date
   paymentDate?: Date
@@ -12,16 +15,12 @@ interface TransactionProps {
   isInstallment: boolean
   initialInstallment?: number
   installmentNumber?: number
-  categoryId: UniqueEntityID
-  methodId: UniqueEntityID
-  userId: UniqueEntityID
+  category: Category
+  method: Method
+  user: User
 }
 
 export class Transaction extends Entity<TransactionProps> {
-  get createdAt() {
-    return this.props.createdAt
-  }
-
   get amount() {
     return this.props.amount
   }
@@ -58,16 +57,16 @@ export class Transaction extends Entity<TransactionProps> {
     return this.props.installmentNumber
   }
 
-  get categoryId() {
-    return this.props.categoryId
+  get category() {
+    return this.props.category
   }
 
-  get methodId() {
-    return this.props.methodId
+  get method() {
+    return this.props.method
   }
 
-  get userId() {
-    return this.props.userId
+  get user() {
+    return this.props.user
   }
 
   public static create(props: TransactionProps, id?: UniqueEntityID) {

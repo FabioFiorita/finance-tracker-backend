@@ -13,9 +13,18 @@ export class TransactionPresenter {
       isInstallment: transaction.isInstallment,
       initialInstallment: transaction.initialInstallment,
       installmentNumber: transaction.installmentNumber,
-      categoryId: transaction.categoryId,
-      methodId: transaction.methodId,
-      userId: transaction.userId,
+      category: {
+        id: transaction.category.id,
+        name: transaction.category.name,
+      },
+      method: {
+        id: transaction.method.id,
+        name: transaction.method.name,
+      },
+      user: {
+        id: transaction.user.id,
+        name: transaction.user.name,
+      },
     }
   }
 }

@@ -16,8 +16,8 @@ describe('Fetch Method Transactions', () => {
   it('should fetch a method transactions', async () => {
     const method = makeMethod()
     inMemoryRepository.items.push(
-      makeTransaction({ methodId: method.id }),
-      makeTransaction({ methodId: method.id }),
+      makeTransaction({ method }),
+      makeTransaction({ method }),
     )
 
     const result = await sut.execute({
@@ -32,7 +32,7 @@ describe('Fetch Method Transactions', () => {
   it('should be paginated', async () => {
     const method = makeMethod()
     for (let i = 0; i < 25; i++) {
-      inMemoryRepository.items.push(makeTransaction({ methodId: method.id }))
+      inMemoryRepository.items.push(makeTransaction({ method }))
     }
 
     const result = await sut.execute({

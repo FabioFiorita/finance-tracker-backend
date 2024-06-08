@@ -6,19 +6,19 @@ export class InMemoryTransactionsRepository implements TransactionsRepository {
 
   public async findManyByUser(userId: number, page: number) {
     return this.items
-      .filter((transaction) => transaction.userId.toValue() === userId)
+      .filter((transaction) => transaction.user.id.toValue() === userId)
       .slice((page - 1) * 20, page * 20)
   }
 
   public async findManyByCategory(categoryId: number, page: number) {
     return this.items
-      .filter((transaction) => transaction.categoryId.toValue() === categoryId)
+      .filter((transaction) => transaction.category.id.toValue() === categoryId)
       .slice((page - 1) * 20, page * 20)
   }
 
   public async findManyByMethod(methodId: number, page: number) {
     return this.items
-      .filter((transaction) => transaction.methodId.toValue() === methodId)
+      .filter((transaction) => transaction.method.id.toValue() === methodId)
       .slice((page - 1) * 20, page * 20)
   }
 

@@ -6,11 +6,11 @@ import { UserPresenter } from '../presenters/user-presenter'
 
 @Controller('users')
 export class FetchUsersController {
-  constructor(private readonly fetchUsersUseCase: FetchUsersUseCase) {}
+  constructor(private readonly useCase: FetchUsersUseCase) {}
 
   @Get()
   async handle() {
-    const result = await this.fetchUsersUseCase.execute()
+    const result = await this.useCase.execute()
 
     if (result.isLeft()) {
       throw new BadRequestException()

@@ -2,15 +2,10 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 interface CategoryProps {
-  createdAt: Date
   name: string
 }
 
 export class Category extends Entity<CategoryProps> {
-  get createdAt() {
-    return this.props.createdAt
-  }
-
   get name() {
     return this.props.name
   }

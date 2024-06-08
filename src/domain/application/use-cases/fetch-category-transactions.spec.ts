@@ -16,8 +16,8 @@ describe('Fetch Category Transactions', () => {
   it('should fetch a category transactions', async () => {
     const category = makeCategory()
     inMemoryRepository.items.push(
-      makeTransaction({ categoryId: category.id }),
-      makeTransaction({ categoryId: category.id }),
+      makeTransaction({ category }),
+      makeTransaction({ category }),
     )
 
     const result = await sut.execute({
@@ -32,9 +32,7 @@ describe('Fetch Category Transactions', () => {
   it('should be paginated', async () => {
     const category = makeCategory()
     for (let i = 0; i < 25; i++) {
-      inMemoryRepository.items.push(
-        makeTransaction({ categoryId: category.id }),
-      )
+      inMemoryRepository.items.push(makeTransaction({ category }))
     }
 
     const result = await sut.execute({

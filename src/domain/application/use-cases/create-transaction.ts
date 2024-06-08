@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common'
 
 import { Either, right } from '@/core/either'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Category } from '@/domain/enterprise/entities/category'
+import { Method } from '@/domain/enterprise/entities/method'
 import { Transaction } from '@/domain/enterprise/entities/transaction'
+import { User } from '@/domain/enterprise/entities/user'
 
 import { TransactionsRepository } from '../repositories/transactions-repository'
 
@@ -16,9 +18,9 @@ type CreateTransactionUseCaseRequest = {
   isInstallment: boolean
   initialInstallment?: number
   installmentNumber?: number
-  categoryId: number
-  methodId: number
-  userId: number
+  category: Category
+  method: Method
+  user: User
 }
 
 type CreateTransactionUseCaseResponse = Either<
@@ -42,12 +44,11 @@ export class CreateTransactionUseCase {
     isInstallment,
     initialInstallment,
     installmentNumber,
-    categoryId,
-    methodId,
-    userId,
+    category,
+    method,
+    user,
   }: CreateTransactionUseCaseRequest): Promise<CreateTransactionUseCaseResponse> {
     const transaction = Transaction.create({
-      createdAt: new Date(),
       amount,
       purchaseDate,
       paymentDate,
@@ -57,9 +58,9 @@ export class CreateTransactionUseCase {
       isInstallment,
       initialInstallment,
       installmentNumber,
-      categoryId: new UniqueEntityID(categoryId),
-      methodId: new UniqueEntityID(methodId),
-      userId: new UniqueEntityID(userId),
+      category,
+      method,
+      user,
     })
 
     await this.repository.create(transaction)

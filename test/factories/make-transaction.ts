@@ -17,15 +17,14 @@ export function makeTransaction(
   return Transaction.create(
     {
       id: new UniqueEntityID(),
-      createdAt: new Date(),
       description: faker.finance.transactionDescription(),
       amount: Number(faker.finance.amount()),
-      userId: makeUser().id,
-      categoryId: makeCategory().id,
+      user: makeUser(),
+      category: makeCategory(),
       isIncome: faker.datatype.boolean(),
       isInstallment: faker.datatype.boolean(),
       isRecurring: faker.datatype.boolean(),
-      methodId: makeMethod().id,
+      method: makeMethod(),
       purchaseDate: faker.date.past(),
       ...override,
     },

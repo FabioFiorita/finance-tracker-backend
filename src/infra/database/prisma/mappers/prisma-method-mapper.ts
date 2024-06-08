@@ -1,4 +1,4 @@
-import { Method as PrismaMethod } from '@prisma/client'
+import { Method as PrismaMethod, Prisma } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Method } from '@/domain/enterprise/entities/method'
@@ -15,7 +15,6 @@ export class PrismaMethodMapper {
 
     return Method.create(
       {
-        createdAt: raw.createdAt,
         name: raw.name,
         userId: new UniqueEntityID(raw.userId),
       },
@@ -23,10 +22,9 @@ export class PrismaMethodMapper {
     )
   }
 
-  static toPersistence(method: Method): PrismaMethod {
+  static toPersistence(method: Method): Prisma.MethodUncheckedCreateInput {
     return {
       id: method.id.toValue(),
-      createdAt: method.createdAt,
       name: method.name,
       userId: method.userId.toValue(),
     }

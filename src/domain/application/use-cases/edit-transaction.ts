@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common'
 
 import { Either, left, right } from '@/core/either'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
+import { Category } from '@/domain/enterprise/entities/category'
+import { Method } from '@/domain/enterprise/entities/method'
 import { Transaction } from '@/domain/enterprise/entities/transaction'
+import { User } from '@/domain/enterprise/entities/user'
 
 import { TransactionsRepository } from '../repositories/transactions-repository'
 
@@ -17,9 +19,9 @@ type EditTransactionUseCaseRequest = {
   isInstallment: boolean
   initialInstallment?: number
   installmentNumber?: number
-  categoryId: number
-  methodId: number
-  userId: number
+  category: Category
+  method: Method
+  user: User
 
   transactionId: number
 }
@@ -44,7 +46,6 @@ export class EditTransactionUseCase {
 
     const updatedTransaction = Transaction.create(
       {
-        createdAt: transaction.createdAt,
         amount: request.amount,
         purchaseDate: request.purchaseDate,
         paymentDate: request.paymentDate,
@@ -54,9 +55,9 @@ export class EditTransactionUseCase {
         isInstallment: request.isInstallment,
         initialInstallment: request.initialInstallment,
         installmentNumber: request.installmentNumber,
-        categoryId: new UniqueEntityID(request.categoryId),
-        methodId: new UniqueEntityID(request.methodId),
-        userId: new UniqueEntityID(request.userId),
+        category: request.category,
+        method: request.method,
+        user: request.user,
       },
       transaction.id,
     )

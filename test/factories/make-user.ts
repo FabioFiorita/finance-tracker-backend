@@ -10,7 +10,6 @@ export function makeUser(override: Partial<User> = {}, id?: UniqueEntityID) {
   return User.create(
     {
       id: new UniqueEntityID(),
-      createdAt: new Date(),
       name: faker.person.fullName(),
       ...override,
     },
