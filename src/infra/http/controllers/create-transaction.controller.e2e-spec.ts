@@ -40,6 +40,13 @@ describe('Create Transaction (E2E)', () => {
     await app.init()
   })
 
+  afterEach(async () => {
+    await prisma.transaction.deleteMany()
+    await prisma.category.deleteMany()
+    await prisma.method.deleteMany()
+    await prisma.user.deleteMany()
+  })
+
   test('[POST] /transaction', async () => {
     const category = await categoryFactory.makePrismaCategory()
     const user = await userFactory.makePrismaUser()
@@ -84,5 +91,48 @@ describe('Create Transaction (E2E)', () => {
         description: createTransaction.description,
       }),
     )
+  })
+
+  test('[POST] /transaction with installements', async () => {
+    const category = await categoryFactory.makePrismaCategory()
+    const user = await userFactory.makePrismaUser()
+    const method = await methodFactory.makePrismaMethod({
+      userId: user.id,
+    })
+
+    const createTransaction = {
+      amount: 300,
+      purchaseDate: new Date(),
+      description: faker.commerce.productName(),
+      isIncome: false,
+      isRecurring: false,
+      isInstallment: true,
+      initialInstallment: 1,
+      installmentNumber: 3,
+      category: {
+        id: category.id.toValue(),
+        name: category.name,
+      },
+      method: {
+        id: method.id.toValue(),
+        name: method.name,
+        userId: method.userId.toValue(),
+      },
+      user: {
+        id: user.id.toValue(),
+        name: user.name,
+      },
+    }
+
+    const response = await request(app.getHttpServer())
+      .post('/transactions')
+      .send({
+        ...createTransaction,
+      })
+
+    const transactions = await prisma.transaction.findMany()
+
+    expect(response.statusCode).toBe(201)
+    expect(transactions).toHaveLength(3)
   })
 })

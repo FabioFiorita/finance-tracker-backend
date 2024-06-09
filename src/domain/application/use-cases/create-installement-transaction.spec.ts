@@ -16,12 +16,12 @@ describe('Create Installement Transaction', () => {
   it('should create a transaction', async () => {
     const transaction = makeTransaction({
       isInstallment: true,
-      installmentNumber: 3,
       initialInstallment: 1,
+      installmentNumber: 3,
     })
     inMemoryRepository.items.push(transaction)
     const result = await sut.execute({
-      transactionId: transaction.id.toValue(),
+      transactionId: transaction.id,
     })
 
     expect(result.isRight()).toBeTruthy()
