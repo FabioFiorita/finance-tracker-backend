@@ -9,7 +9,7 @@ import { User } from '@/domain/enterprise/entities/user'
 
 import { TransactionsRepository } from '../repositories/transactions-repository'
 
-type EditTransactionUseCaseRequest = {
+export type EditTransactionUseCaseRequest = {
   amount: number
   purchaseDate: Date
   paymentDate?: Date

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
 
 import { Either, left, right } from '@/core/either'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
 import { TransactionMissingInstallmentsError } from '@/core/errors/errors/transaction-missing-installments-error'
 import { TransactionIsNotInstallmentsError } from '@/core/errors/errors/transactions-is-not-installment-error'
@@ -10,7 +11,7 @@ import { Transaction } from '@/domain/enterprise/entities/transaction'
 import { TransactionsRepository } from '../repositories/transactions-repository'
 
 type CreateInstallementTransactionUseCaseRequest = {
-  transactionId: number
+  transactionId: UniqueEntityID
 }
 
 type CreateInstallementTransactionsUseCaseResponse = Either<
@@ -29,7 +30,9 @@ export class CreateInstallementTransactionsUseCase {
   async execute({
     transactionId,
   }: CreateInstallementTransactionUseCaseRequest): Promise<CreateInstallementTransactionsUseCaseResponse> {
-    const initialTransaction = await this.repository.findById(transactionId)
+    const initialTransaction = await this.repository.findById(
+      transactionId.toValue(),
+    )
 
     if (!initialTransaction) {
       return left(new ResourceNotFoundError())

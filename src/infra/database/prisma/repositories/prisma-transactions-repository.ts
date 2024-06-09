@@ -16,7 +16,7 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
         userId,
       },
       take: 20,
-      skip: page * 20,
+      skip: (page - 1) * 20,
       include: {
         category: true,
         method: true,
@@ -33,7 +33,7 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
         categoryId,
       },
       take: 20,
-      skip: page * 20,
+      skip: (page - 1) * 20,
       include: {
         category: true,
         method: true,
@@ -50,7 +50,7 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
         methodId,
       },
       take: 20,
-      skip: page * 20,
+      skip: (page - 1) * 20,
       include: {
         category: true,
         method: true,

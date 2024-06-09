@@ -14,15 +14,15 @@ export class TransactionPresenter {
       initialInstallment: transaction.initialInstallment,
       installmentNumber: transaction.installmentNumber,
       category: {
-        id: transaction.category.id,
+        id: transaction.category.id.toValue(),
         name: transaction.category.name,
       },
       method: {
-        id: transaction.method.id,
+        id: transaction.method.id.toValue(),
         name: transaction.method.name,
       },
       user: {
-        id: transaction.user.id,
+        id: transaction.user.id.toValue(),
         name: transaction.user.name,
       },
     }
